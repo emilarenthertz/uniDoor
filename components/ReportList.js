@@ -1,75 +1,95 @@
 import React from "react";
 import {
   Text,
-  FlatList,
   TouchableOpacity,
-  StyleSheet,
+  View,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
+import { Card } from "react-native-elements";
 import firebase from "firebase";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-// Look at ex5 for inspiration into how to use navigation.navigate()
+const RatingComponnet = ({ report }) => {
+  const [rating, setRating] = React.useState(report.rating);
 
-const ReportList = ({ children }) => {
-  const [report, setReport] = React.useState();
+  // TODO: look into how to fix below issue
+  React.useEffect(() => {
+    // skip initial render
+    return () => {
+      console.log("ny rating!!", rating);
+      // TODO: Create and call Update rating query
+    };
+  }, [rating]);
+
+  return (
+    <View style={{ flex: 1, marginBottom: 15 }}>
+      <TouchableOpacity
+        disabled={rating == Number(report.rating) + 1}
+        onPress={() => setRating(Number(rating) + 1)}
+      >
+        <Icon name="chevron-up" size={25} />
+      </TouchableOpacity>
+      <Text style={{ marginLeft: 4, marginTop: 3 }}>{rating}</Text>
+      <TouchableOpacity
+        disabled={rating == Number(report.rating) - 1}
+        onPress={() => setRating(Number(rating) - 1)}
+      >
+        <Icon name="chevron-down" size={25} />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const ReportList = ({ query }) => {
+  const [uddannelse, setUddannelse] = React.useState();
+
+  query = "/universiteter/0/uddannelser/1"; // update dynamically from props
 
   React.useEffect(() => {
-    if (!report) {
+    if (!uddannelse) {
       firebase
         .database()
-        .ref(`/universiteter/1/uddannelser/1`)
+        .ref(query)
         .on("value", (snapshot) => {
-          setReport(snapshot.val());
+          setUddannelse(snapshot.val());
         });
     }
   }, []);
 
-  if (!report) {
+  if (!uddannelse) {
     return <Text>Indlæser beretninger...</Text>;
   }
 
-  console.log(report);
-
-  // const handleSelect = (id) => {
-  //   const uddannelse = Object.entries(report).find(
-  //     (uddannelse) => uddannelse[0] === id
-  //   );
-  //   navigation.navigate("ReportDetails", { uddannelse });
-  // };
-
-  const uddannelsesArray = Object.values(report);
-  const uddannelsesKeys = Object.keys(report);
-
+  uddannelse.reports.map((r) => console.log(r));
   return (
-    // <SafeAreaView>
-    <Text>fisk</Text>
-    // <FlatList
-    //   data={uddannelsesArray}
-    //   keyExtractor={(index) => uddannelsesKeys[index]}
-    //   renderItem={({ item, index }) => (
-    //     <TouchableOpacity
-    //       style={styles.container}
-    //       // onPress={() => handleSelect(uddannelsesKeys[index])}
-    //       key={index}
-    //     >
-    //       <Text>{item.navn}</Text>
-    //     </TouchableOpacity>
-    //   )}
-    // />
-    // </SafeAreaView>
+    <ScrollView>
+      {uddannelse.reports.map((report) => {
+        const dato = new Date(Number(report.date));
+        return (
+          <Card key={report.date}>
+            <Card.Title>{report.title}</Card.Title>
+            <Card.Divider />
+            <View style={{ flexDirection: "row" }}>
+              <RatingComponnet report={report} />
+              <Text style={{ flex: 7 }}>{report.description}</Text>
+            </View>
+            <Card.Divider />
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ flex: 1 }}>{`#${report.category}`}</Text>
+              <Text style={{ textAlign: "right" }}>
+                {dato.toLocaleDateString("da-DK", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </Text>
+            </View>
+          </Card>
+        );
+      })}
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 10,
-    margin: 5,
-    padding: 5,
-    height: 50,
-    justifyContent: "center",
-  },
-});
 
 export default ReportList;

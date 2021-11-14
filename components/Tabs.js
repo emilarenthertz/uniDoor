@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 // Link til youtube guide: https://www.youtube.com/watch?v=gPaBicMaib4
 
-const Tabs = ({ education }) => {
+const Tabs = ({ query }) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -22,14 +22,14 @@ const Tabs = ({ education }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList>{education}</ReportList>}
+        children={() => <ReportList query={query} />}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 7,
+                top: 12,
               }}
             >
               <Icon name="home" size={25} />
@@ -37,7 +37,7 @@ const Tabs = ({ education }) => {
                 style={{
                   color: focused ? "#0099FF" : "#748c94",
                   fontSize: 12,
-                  paddingTop: 5,
+                  paddingTop: 8,
                 }}
               >
                 Oversigt
@@ -48,14 +48,14 @@ const Tabs = ({ education }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        component={CreateReport}
+        children={() => <CreateReport query={query} />}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 7,
+                top: 12,
               }}
             >
               <Icon name="plus" size={25} />
@@ -63,7 +63,7 @@ const Tabs = ({ education }) => {
                 style={{
                   color: focused ? "#0099FF" : "#748c94",
                   fontSize: 12,
-                  paddingTop: 5,
+                  paddingTop: 8,
                 }}
               >
                 Skriv beretning
@@ -82,7 +82,7 @@ const Tabs = ({ education }) => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 7,
+                top: 12,
               }}
             >
               <Icon name="filter" size={25} />
@@ -90,7 +90,7 @@ const Tabs = ({ education }) => {
                 style={{
                   color: focused ? "#0099FF" : "#748c94",
                   fontSize: 12,
-                  paddingTop: 5,
+                  paddingTop: 8,
                 }}
               >
                 Filtrer
