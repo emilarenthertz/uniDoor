@@ -1,0 +1,65 @@
+{
+    "universiteter": {
+      "1": {
+        "id": 1,
+        "navn": "Copenhagen Business School",  
+        "uddannelser": {
+            "1": {
+                "id": 1,
+                "navn": "HA almen",
+                "reports": {
+                    "1": {
+                        "id": 1,
+                        "title": "Luksus kantine!!",
+                        "category": "canteen", 
+                        "description": "Det er den bedste kantine jeg har prøvet",
+                        "date": "1636886131831",
+                        "rating": "15",
+                        "user": "Karen"
+                    },
+                    "2": {
+                        "id": 2,
+                        "title": "Dårlig kantine!!",
+                        "category": "canteen", 
+                        "description": "Det er den værste kantine jeg har prøvet",
+                        "date": "1620984964",
+                        "rating": "-4",
+                        "user": "Joachim"
+                    }
+                }
+            } 
+        }
+      },
+      "2": {
+        "id": 2,
+        "navn": "Københavns Universitet",  
+        "uddannelser": {
+            "1": {
+                "id": 1,
+                "navn": "Økonomi",
+                "reports": {
+                    "1": {
+                        "id": 1,
+                        "title": "Luksus kantine!!",
+                        "category": "canteen", 
+                        "description": "Det er den bedste kantine jeg har prøvet",
+                        "date": "1636886131831",
+                        "rating": "5",
+                        "user": "Thorkild"
+                    },
+                    "2": {
+                        "id": 2,
+                        "title": "Dårlig kantine!!",
+                        "category": "canteen", 
+                        "description": "Det er den værste kantine jeg har prøvet",
+                        "date": "1620984964",
+                        "rating": "-4",
+                        "user": "Preben"
+                    }
+                }
+            } 
+        }
+      }
+    }
+  }
+  
