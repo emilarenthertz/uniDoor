@@ -8,49 +8,54 @@ import {
 } from "react-native";
 import firebase from "firebase";
 
-const ReportList = ({ navigation }) => {
-  const [uddannelser, setUddannelser] = React.useState();
+// Look at ex5 for inspiration into how to use navigation.navigate()
+
+const ReportList = ({ children }) => {
+  const [report, setReport] = React.useState();
 
   React.useEffect(() => {
-    if (!uddannelser) {
+    if (!report) {
       firebase
         .database()
-        .ref(`/uddannelser`)
+        .ref(`/universiteter/1/uddannelser/1`)
         .on("value", (snapshot) => {
-          setUddannelser(snapshot.val());
+          setReport(snapshot.val());
         });
     }
   }, []);
 
-  if (!uddannelser) {
-    return <Text>Indlæser uddannelser...</Text>;
+  if (!report) {
+    return <Text>Indlæser beretninger...</Text>;
   }
 
-  const handleSelect = (id) => {
-    const uddannelse = Object.entries(uddannelser).find(
-      (uddannelse) => uddannelse[0] === id
-    );
-    navigation.navigate("ReportDetails", { uddannelse });
-  };
+  console.log(report);
 
-  const uddannelsesArray = Object.values(uddannelser);
-  const uddannelsesKeys = Object.keys(uddannelser);
+  // const handleSelect = (id) => {
+  //   const uddannelse = Object.entries(report).find(
+  //     (uddannelse) => uddannelse[0] === id
+  //   );
+  //   navigation.navigate("ReportDetails", { uddannelse });
+  // };
+
+  const uddannelsesArray = Object.values(report);
+  const uddannelsesKeys = Object.keys(report);
 
   return (
     // <SafeAreaView>
-    <FlatList
-      data={uddannelsesArray}
-      keyExtractor={(index) => uddannelsesKeys[index]}
-      renderItem={({ item, index }) => (
-        <TouchableOpacity
-          style={styles.container}
-          onPress={() => handleSelect(uddannelsesKeys[index])}
-          key={index}
-        >
-          <Text>{item.Navn}</Text>
-        </TouchableOpacity>
-      )}
-    />
+    <Text>fisk</Text>
+    // <FlatList
+    //   data={uddannelsesArray}
+    //   keyExtractor={(index) => uddannelsesKeys[index]}
+    //   renderItem={({ item, index }) => (
+    //     <TouchableOpacity
+    //       style={styles.container}
+    //       // onPress={() => handleSelect(uddannelsesKeys[index])}
+    //       key={index}
+    //     >
+    //       <Text>{item.navn}</Text>
+    //     </TouchableOpacity>
+    //   )}
+    // />
     // </SafeAreaView>
   );
 };

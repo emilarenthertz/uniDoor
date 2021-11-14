@@ -2,69 +2,119 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ReportList from "./ReportList";
 import CreateReport from "./CreateReport";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+// Link til youtube guide: https://www.youtube.com/watch?v=gPaBicMaib4
+
+const Tabs = ({ education }) => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          ...styles.tabBar,
+          ...styles.tabBarShadow,
+        },
       }}
-      // screenOptions={{
-      //   tabBarStyle: {
-      //     position: "absolute",
-      //     bottom: 25,
-      //     left: 20,
-      //     right: 20,
-      //     elevation: 0,
-      //     backgroundColor: "#FFFFFF",
-      //     borderRadius: 15,
-      //     height: 90,
-      //     ...styles.shadow,
-      //   },
-      // }}
     >
       <Tab.Screen
-        name="Liste"
-        component={ReportList}
+        name="Oversigt"
+        children={() => <ReportList>{education}</ReportList>}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
+                top: 7,
               }}
             >
-              {/* <Image
-                source={require("../assets/favicon.png")}
-                resizeMode="contain"
-                style={{
-                  width: "25",
-                  height: "25",
-                  tintColor: focused ? "#e32f45" : "#748c94",
-                }}
-              /> */}
-              <Icon name="list" size={25} />
+              <Icon name="home" size={25} />
               <Text
-                style={{ color: focused ? "#0099FF" : "#748c94", fontSize: 12 }}
+                style={{
+                  color: focused ? "#0099FF" : "#748c94",
+                  fontSize: 12,
+                  paddingTop: 5,
+                }}
               >
-                Liste
+                Oversigt
               </Text>
             </View>
           ),
         }}
       />
-      <Tab.Screen name="Ny" component={CreateReport} />
+      <Tab.Screen
+        name="Skriv beretning"
+        component={CreateReport}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 7,
+              }}
+            >
+              <Icon name="plus" size={25} />
+              <Text
+                style={{
+                  color: focused ? "#0099FF" : "#748c94",
+                  fontSize: 12,
+                  paddingTop: 5,
+                }}
+              >
+                Skriv beretning
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Filtrer"
+        // TODO: replace below component
+        component={CreateReport}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 7,
+              }}
+            >
+              <Icon name="filter" size={25} />
+              <Text
+                style={{
+                  color: focused ? "#0099FF" : "#748c94",
+                  fontSize: 12,
+                  paddingTop: 5,
+                }}
+              >
+                Filtrer
+              </Text>
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  shadow: {
+  tabBar: {
+    position: "absolute",
+    bottom: 25,
+    left: 20,
+    right: 20,
+    elevation: 0,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    height: 90,
+  },
+  tabBarShadow: {
     shadowColor: "#0099FF",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.25,

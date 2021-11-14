@@ -1,13 +1,13 @@
-// Her bundles alle tre undersider sammen
-// Her initialiseres tabs
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./Tabs";
 
-// TODO: Her skal tabs mountes når der bliver valgt en uddannelse
-// <NavigationContainer>
-//   {/* <View style={styles.container}> */}
-//   <Tabs />
-//   {/* <Stack.Navigator>
-//       <Stack.Screen name={"Udannelser"} component={ReportList} />
-//       <Stack.Screen name={"ReportDetails"} component={ReportDetails} />
-//     </Stack.Navigator> */}
-//   {/* </View> */}
-// </NavigationContainer>
+const Education = ({ education }) => {
+  return (
+    <NavigationContainer>
+      <Tabs education={education} />
+    </NavigationContainer>
+  );
+};
+
+export default Education;
