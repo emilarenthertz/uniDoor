@@ -1,13 +1,19 @@
 import React from "react";
-import { Text, TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-elements";
-import RNPickerSelect, { defaultStyles } from "react-native-picker-select";
+import RNPickerSelect from "react-native-picker-select";
 
 const CreateReport = ({ valgtUddannelse }) => {
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [pickedIndex, setPickedIndex] = React.useState("initial");
+  const initialDescriptionStyle = {
+      fontSize: 40,
+      borderWidth: 0,
+      height: 50,
+  }
+  const [descriptionStyle, setDescriptionStyle] = React.useState(initialDescriptionStyle);
 
   React.useEffect(() => {
     if (!uddannelse) {
@@ -19,31 +25,36 @@ const CreateReport = ({ valgtUddannelse }) => {
     return <Text>Indlæser ...</Text>;
   }
 
-  console.log(defaultStyles);
+  const onFocus = () => {
+      setDescriptionStyle({
+          fontSize: 0,
+          height: 200,
+          borderColor: '#EAE9EB',
+          borderWidth: 1,
+          textAlignVertical: "top",
+          paddingHorizontal: 5,
+          paddingVertical: 5,
+      })
+  }
+
+  const onBlur = () => {
+      setDescriptionStyle(initialDescriptionStyle)
+  }
 
   return (
     <Card>
-      <Text style={styles.header}>Ny beretning</Text>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Titel</Text>
         <TextInput
-          value={description}
-          onChangeText={(e) => setDescription(e.target?.value)}
+          placeholder={'Titel'}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
           style={[styles.input, styles.normalInputHeight]}
         />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Kategori</Text>
-        <View
-          style={[
-            styles.picker,
-            { height: 50, paddingHorizontal: 5, justifyContent: "center" },
-          ]}
-        >
+        <Card.Divider />
           <RNPickerSelect
+            style={customPickerStyles}
             onValueChange={(value) => setPickedIndex(value)}
-            placeholder={{ label: "Vælg en kategori", value: "initial" }}
+            placeholderTextColor={'DD0000'}
+            placeholder={{ label: "Kategori", value: "initial" }}
             items={[
               { label: "Kantine", value: "0" },
               { label: "Arbejdsbyrde", value: "1" },
@@ -53,17 +64,23 @@ const CreateReport = ({ valgtUddannelse }) => {
               { label: "Eksaminer", value: "4" },
             ]}
           />
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Del din oplevelse</Text>
+          <Card.Divider />
         <TextInput
           value={description}
-          onChangeText={(e) => setDescription(e.target?.value)}
-          style={[styles.input, styles.tallInputHeight]}
+          placeholder={'Del din oplevelse'}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onChangeText={(text) => setDescription(text)}
+          style={descriptionStyle}
           multiline={true}
         />
-      </View>
+        <Card.Divider />
+        {title !== '' && pickedIndex !== 'initial' && description !== ''  ?
+        <View style={{alignItems:'center'}}>
+            <Pressable style={styles.button}>
+                <Text style={styles.text}>Opret</Text>
+            </Pressable>
+        </View>: null}
     </Card>
     /*<Card>
       <Card.Title>{uddannelse.navn}</Card.Title>
@@ -89,32 +106,47 @@ const CreateReport = ({ valgtUddannelse }) => {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 30,
-  },
-  inputContainer: {
-    paddingTop: 20,
+    fontSize: 40,
+    paddingBottom: 5,
+    textTransform: 'uppercase'
   },
   label: {
     fontWeight: "bold",
     alignItems: "center",
   },
   input: {
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 15,
+    fontSize: 40,
   },
   normalInputHeight: {
     height: 50,
   },
-  tallInputHeight: {
-    height: 200,
-    textAlignVertical: "top",
+
+  button: {
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: "#0099FF",
+      width: 150
   },
-  picker: {
-    borderWidth: 1,
-    borderRadius: 15,
-    color: "black",
+  text: {
+      textAlign: 'center',
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      color: 'white',
   },
+
+});
+
+const customPickerStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 40,
+        height:50,
+    },
+    /*inputAndroid: {
+
+    },*/
 });
 
 export default CreateReport;
