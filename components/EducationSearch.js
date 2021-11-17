@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import Education from "./Education";
 
 const EducationSearch = ({ navigation }) => {
   const [universities, setUniversities] = useState([]);
@@ -54,62 +53,49 @@ const EducationSearch = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Text style={{ fontSize: 18 }}>Universitet</Text>
+      <Image
+        style={{ height: 250, width: 250, marginTop: 35 }}
+        source={require("../assets/uniDoor_transparent.png")}
+      />
+      <Picker
+        selectedValue={universityIndex}
+        style={{ height: 10, width: 350, marginTop: 0 }}
+        onValueChange={universitySelected}
+      >
+        <Picker.Item label="Vælg universitet" value="initial" key="initial" />
+        {uniOptions}
+      </Picker>
+      {educationOptions.length ? (
+        <>
           <Picker
-            selectedValue={universityIndex}
-            style={{ height: 10, width: 350 }}
-            onValueChange={universitySelected}
+            selectedValue={educationIndex}
+            style={{ width: 250, marginTop: 150 }}
+            onValueChange={educationSelected}
           >
             <Picker.Item
-              label="Vælg universitet"
+              label="Vælg uddannelse"
               value="initial"
               key="initial"
             />
-            {uniOptions}
+            {educationOptions}
           </Picker>
-        </View>
-
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          {educationOptions.length ? (
-            <>
-              <Text style={{ fontSize: 18 }}>Vælg uddannelse</Text>
-              <Picker
-                selectedValue={educationIndex}
-                style={{ flex: 1, width: 250 }}
-                onValueChange={educationSelected}
-              >
-                <Picker.Item
-                  label="Vælg uddannelse"
-                  value="initial"
-                  key="initial"
-                />
-                {educationOptions}
-              </Picker>
-              <View style={{ flex: 1 }}>
-                {educationIndex !== "initial" ? (
-                  <Button
-                    onPress={() =>
-                      navigation.navigate("Education", {
-                        educationName: universities[universityIndex].uddannelser[educationIndex].navn,
-                        schoolId: universityIndex,
-                        educationId: educationIndex,
-                      })
-                    }
-                    title="Vis beretninger"
-                  />
-                ) : null}
-              </View>
-            </>
+          {educationIndex !== "initial" ? (
+            <Button
+              style={{ flex: 1 }}
+              onPress={() =>
+                navigation.navigate("Education", {
+                  educationName:
+                    universities[universityIndex].uddannelser[educationIndex]
+                      .navn,
+                  schoolId: universityIndex,
+                  educationId: educationIndex,
+                })
+              }
+              title="Vis beretninger"
+            />
           ) : null}
-        </View>
-      </View>
-      <View style={{ alignItems: "center", justifyContent: "center" }}></View>
+        </>
+      ) : null}
     </View>
   );
 };
@@ -118,7 +104,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
 });
 

@@ -10,12 +10,19 @@ const WelcomeScreen = (props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={"EducationSearch"} component={EducationSearch} />
-        <Stack.Screen name={"Education"}
-                      component={Education}
-                      options={({ route }) => ({
-                        headerTitle: (route.params.educationName),
-                      })} />
+        <Stack.Screen
+          name={"EducationSearch"}
+          component={EducationSearch}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={"Education"}
+          component={Education}
+          options={({ route }) => ({
+            headerTitle: route.params.educationName,
+            headerBackTitle: "Tilbage",
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
