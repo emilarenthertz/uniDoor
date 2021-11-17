@@ -96,6 +96,7 @@ const EducationSearch = ({ navigation }) => {
                   <Button
                     onPress={() =>
                       navigation.navigate("Education", {
+                        educationName: universities[universityIndex].uddannelser[educationIndex].navn,
                         schoolId: universityIndex,
                         educationId: educationIndex,
                       })

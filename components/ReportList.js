@@ -15,7 +15,6 @@ const RatingComponnet = ({ report }) => {
 
   const updateRating = (newScore) => {
     // First update correct instance in DB with newScore
-    console.log({ report });
 
     // TODO: Fjern id igen fra database og brug array-indeks i stedet - ikke muligt med associative array :(
     setRating(newScore);
