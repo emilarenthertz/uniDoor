@@ -7,24 +7,20 @@ import {
   ScrollView,
 } from "react-native";
 import { Card } from "react-native-elements";
-import firebase from "firebase";
+import * as Haptics from "expo-haptics";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const RatingComponnet = ({ report }) => {
   const [rating, setRating] = React.useState(report.rating);
 
-  const updateRating = (newScore) => {
-    // First update correct instance in DB with newScore
-
-    // TODO: Fjern id igen fra database og brug array-indeks i stedet - ikke muligt med associative array :(
-    setRating(newScore);
-  };
-
   return (
     <View style={{ flex: 1, marginBottom: 15 }}>
       <TouchableOpacity
         disabled={rating == Number(report.rating) + 1}
-        onPress={() => updateRating(Number(rating) + 1)}
+        onPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          setRating(Number(rating) + 1);
+        }}
       >
         <Icon
           name="chevron-up"
@@ -35,7 +31,10 @@ const RatingComponnet = ({ report }) => {
       <Text style={{ marginLeft: 4, marginTop: 3 }}>{rating}</Text>
       <TouchableOpacity
         disabled={rating == Number(report.rating) - 1}
-        onPress={() => updateRating(Number(rating) - 1)}
+        onPress={() => {
+          Haptics.impactAsync(Haptics.NotificationFeedbackType.Light);
+          setRating(Number(rating) - 1);
+        }}
       >
         <Icon
           name="chevron-down"
@@ -61,7 +60,7 @@ const ReportList = ({ valgtUddannelse }) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {uddannelse.reports.map((report) => {
         const dato = new Date(Number(report.date));
         return (
@@ -70,7 +69,9 @@ const ReportList = ({ valgtUddannelse }) => {
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
               <RatingComponnet report={report} />
-              <Text style={{ flex: 7 }}>{report.description}</Text>
+              <Text style={{ flex: 7, marginBottom: 15 }}>
+                {report.description}
+              </Text>
             </View>
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
@@ -86,6 +87,8 @@ const ReportList = ({ valgtUddannelse }) => {
           </Card>
         );
       })}
+      <Text style={{ marginBottom: 120 }} />
+      {/* Above is a hack - find better solution */}
     </ScrollView>
   );
 };

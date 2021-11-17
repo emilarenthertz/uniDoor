@@ -5,10 +5,14 @@ import CreateReport from "./CreateReport";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "firebase";
+import * as Haptics from "expo-haptics";
 
 const Tab = createBottomTabNavigator();
 
 // Link til youtube guide: https://www.youtube.com/watch?v=gPaBicMaib4
+
+// TODO: make sure that back button is only visible on list screen and not the rest
+// also translate back to danish
 
 const Tabs = ({ params }) => {
   const [uddannelse, setUddannelse] = React.useState();
@@ -41,6 +45,9 @@ const Tabs = ({ params }) => {
       <Tab.Screen
         name="Oversigt"
         children={() => <ReportList valgtUddannelse={uddannelse} />}
+        listeners={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -67,6 +74,9 @@ const Tabs = ({ params }) => {
       <Tab.Screen
         name="Skriv beretning"
         children={() => <CreateReport valgtUddannelse={uddannelse} />}
+        listeners={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -94,6 +104,9 @@ const Tabs = ({ params }) => {
         name="Filtrer"
         // TODO: replace below component
         component={CreateReport}
+        listeners={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

@@ -7,22 +7,36 @@
           "navn": "HA almen",
           "reports": [
             {
-              "id": 1,
-              "title": "Luksus kantine!!",
-              "category": "canteen",
-              "description": "Det er den bedste kantine jeg har prøvet",
+              "title": "Fantastisk kantine!!",
+              "category": "Kantine",
+              "description": "Kantine med studievenlige priser og lækker frokost!",
               "date": "1636886131831",
-              "rating": "15",
+              "rating": "13",
               "user": "Karen"
             },
             {
-              "id": 2,
-              "title": "Dårlig kantine!!",
-              "category": "canteen",
-              "description": "Det er den værste kantine jeg har prøvet",
-              "date": "1620984964",
-              "rating": "-4",
+              "title": "Gode studiejob",
+              "category": "Studiejob",
+              "description": "Som studerende på ha almen er der rigtige gode muligheder for at få studiejob, da arbejdspladserne ved lige præcist hvad de får, når de ansætter en almener. Tilmed er meget af undervisningen direkte brugbar på arbejdet og omvendt.",
+              "date": "1637168769938",
+              "rating": "47",
               "user": "Joachim"
+            },
+            {
+              "title": "Hård arbejdsbyrde",
+              "category": "Arbejdsbyrde",
+              "description": "Hvis du vælger studiet skal du være klar over, at det muligvis er det mest tidskrævende på cbs og at man løbene skal til eksamen. I løbet af et semester er det muligt at have op til 7 eksaminer i et enkelt fag og i spidsbelastningsperioderne arbejder jeg omkring 40 timer om ugen...",
+              "date": "1627941600000",
+              "rating": "52",
+              "user": "Peter"
+            },
+            {
+              "title": "det lårt",
+              "category": "Socialt",
+              "description": "det er skod uddannelse, bliv væk",
+              "date": "1631656800000",
+              "rating": "-17",
+              "user": "Tomas"
             }
           ]
         },
@@ -30,22 +44,36 @@
           "navn": "HA it",
           "reports": [
             {
-              "id": 1,
-              "title": "Luksus kantine!!",
-              "category": "canteen",
-              "description": "Det er den bedste kantine jeg har prøvet",
+              "title": "Ringe kantine",
+              "category": "Kantine",
+              "description": "Kantinen på cbs har fået ny forpagter (Jespers Torvekøkken) og de leverer ikke tilnærmelsesvis et så godt produkt som vi har været vant til. Studiet holder meget til på satelitkampus Flintholm, hvor kantinen tilmed ikke er bemandet og ikke har friske varer... Det er kun muligt at købe kaffe og vand :(",
               "date": "1636886131831",
-              "rating": "15",
+              "rating": "17",
               "user": "Karen"
             },
             {
-              "id": 2,
-              "title": "Dårlig kantine!!",
-              "category": "canteen",
-              "description": "Det er den værste kantine jeg har prøvet",
-              "date": "1620984964",
-              "rating": "-4",
+              "title": "Gode studiejob",
+              "category": "Studiejob",
+              "description": "Som studerende på ha it er der rigtige gode muligheder for at få studiejob, da efterspørgslen på it kompetencer kombineret med forretningsforståelse er enorm! Jeg kender ikke til nogen på studiet her på tredje år, som ikke har et studierelevant job, som ønsker det..",
+              "date": "1637168769938",
+              "rating": "24",
               "user": "Joachim"
+            },
+            {
+              "title": "Mindre hård arbejdsbyrde",
+              "category": "Arbejdsbyrde",
+              "description": "Arbejdsbyrden er væsenligt lavere end på studier som almen, da vi kun har eksamener i slutningen af december. Dog er det vigtigt at pointere, at der på studiet er ekstremt meget gruppe projektarbejde, hvilket kan være en udfordring at få koordineret, da stort set alle tilmed har studiejob.",
+              "date": "1627941600000",
+              "rating": "33",
+              "user": "Peter"
+            },
+            {
+              "title": "ringeeee",
+              "category": "Socialt",
+              "description": "ha almen er meget bedre!!",
+              "date": "1631656800000",
+              "rating": "-10",
+              "user": "Tomas"
             }
           ]
         }
@@ -58,22 +86,36 @@
           "navn": "Økonomi",
           "reports": [
             {
-              "id": 1,
-              "title": "Luksus kantine!!",
-              "category": "canteen",
-              "description": "Det er den bedste kantine jeg har prøvet",
+              "title": "ok kantine",
+              "category": "Kantine",
+              "description": "Kantinen er billig, men hvis jeg være helt ærlig, vil jeg hele spise mine leverpostejsmadder",
               "date": "1636886131831",
-              "rating": "5",
-              "user": "Thorkild"
+              "rating": "11",
+              "user": "Karen"
             },
             {
-              "id": 2,
-              "title": "Dårlig kantine!!",
-              "category": "canteen",
-              "description": "Det er den værste kantine jeg har prøvet",
-              "date": "1620984964",
-              "rating": "-4",
-              "user": "Preben"
+              "title": "Gode studiejob",
+              "category": "Studiejob",
+              "description": "Som studerende på økonomi er der rigtige gode muligheder for at få studiejob",
+              "date": "1637168769938",
+              "rating": "14",
+              "user": "Joachim"
+            },
+            {
+              "title": "Hård arbejdsbyrde",
+              "category": "Arbejdsbyrde",
+              "description": "Studiet er historisk kendt for at være et hårdt studie og kræver minimum en fuldtidsindsats (37 timer)",
+              "date": "1627941600000",
+              "rating": "20",
+              "user": "Peter"
+            },
+            {
+              "title": "ringeeee",
+              "category": "Socialt",
+              "description": "ha almen er meget bedre!!",
+              "date": "1631656800000",
+              "rating": "-14",
+              "user": "Tomas"
             }
           ]
         },
@@ -81,22 +123,36 @@
           "navn": "Statskundskab",
           "reports": [
             {
-              "id": 1,
-              "title": "Luksus kantine!!",
-              "category": "canteen",
-              "description": "Det er den bedste kantine jeg har prøvet",
+              "title": "Ringe kantine",
+              "category": "Kantine",
+              "description": "Kantinen på cbs har fået ny forpagter (Jespers Torvekøkken) og de leverer ikke tilnærmelsesvis et så godt produkt som vi har været vant til. Studiet holder meget til på satelitkampus Flintholm, hvor kantinen tilmed ikke er bemandet og ikke har friske varer... Det er kun muligt at købe kaffe og vand :(",
               "date": "1636886131831",
-              "rating": "5",
-              "user": "Thorkild"
+              "rating": "-2",
+              "user": "Karen"
             },
             {
-              "id": 2,
-              "title": "Dårlig kantine!!",
-              "category": "canteen",
-              "description": "Det er den værste kantine jeg har prøvet",
-              "date": "1620984964",
-              "rating": "-4",
-              "user": "Preben"
+              "title": "Svært at få studiejob",
+              "category": "Studiejob",
+              "description": "Som studerende på stats kan det være svært at få et relevant studiejob, da der er begrænset plads i ministerierne",
+              "date": "1637168769938",
+              "rating": "12",
+              "user": "Joachim"
+            },
+            {
+              "title": "Hård arbejdsbyrde",
+              "category": "Arbejdsbyrde",
+              "description": "Studiet er historisk kendt for at være et hårdt studie og kræver minimum en fuldtidsindsats (37 timer)",
+              "date": "1627941600000",
+              "rating": "40",
+              "user": "Peter"
+            },
+            {
+              "title": "ringeeee",
+              "category": "Socialt",
+              "description": "Økomnomi er meget bedre!!",
+              "date": "1631656800000",
+              "rating": "-3",
+              "user": "Tomas"
             }
           ]
         }
