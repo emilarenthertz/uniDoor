@@ -10,12 +10,12 @@ import { Card } from "react-native-elements";
 import firebase from "firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const RatingComponnet = ({ report, query }) => {
+const RatingComponnet = ({ report }) => {
   const [rating, setRating] = React.useState(report.rating);
 
   const updateRating = (newScore) => {
     // First update correct instance in DB with newScore
-    console.log({ report, query });
+    console.log({ report });
 
     // TODO: Fjern id igen fra database og brug array-indeks i stedet - ikke muligt med associative array :(
     setRating(newScore);
@@ -48,21 +48,14 @@ const RatingComponnet = ({ report, query }) => {
   );
 };
 
-const ReportList = ({ query }) => {
+const ReportList = ({ valgtUddannelse }) => {
   const [uddannelse, setUddannelse] = React.useState();
-
-  query = "/universiteter/0/uddannelser/1"; // update dynamically from props
 
   React.useEffect(() => {
     if (!uddannelse) {
-      firebase
-        .database()
-        .ref(query)
-        .on("value", (snapshot) => {
-          setUddannelse(snapshot.val());
-        });
+      setUddannelse(valgtUddannelse);
     }
-  }, []);
+  }, [valgtUddannelse]);
 
   if (!uddannelse) {
     return <Text>Indlæser beretninger...</Text>;
@@ -77,7 +70,7 @@ const ReportList = ({ query }) => {
             <Card.Title>{report.title}</Card.Title>
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
-              <RatingComponnet report={report} query={query} />
+              <RatingComponnet report={report} />
               <Text style={{ flex: 7 }}>{report.description}</Text>
             </View>
             <Card.Divider />

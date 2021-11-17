@@ -4,12 +4,29 @@ import ReportList from "./ReportList";
 import CreateReport from "./CreateReport";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import firebase from "firebase";
 
 const Tab = createBottomTabNavigator();
 
 // Link til youtube guide: https://www.youtube.com/watch?v=gPaBicMaib4
 
-const Tabs = ({ query }) => {
+const Tabs = ({ params }) => {
+  const [uddannelse, setUddannelse] = React.useState();
+
+  const { schoolId, educationId } = params;
+  const query = `/universiteter/${schoolId}/uddannelser/${educationId}`;
+
+  React.useEffect(() => {
+    if (!uddannelse) {
+      firebase
+        .database()
+        .ref(query)
+        .on("value", (snapshot) => {
+          setUddannelse(snapshot.val());
+        });
+    }
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -23,7 +40,7 @@ const Tabs = ({ query }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList query={query} />}
+        children={() => <ReportList valgtUddannelse={uddannelse} />}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -49,7 +66,7 @@ const Tabs = ({ query }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        children={() => <CreateReport query={query} />}
+        children={() => <CreateReport valgtUddannelse={uddannelse} />}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

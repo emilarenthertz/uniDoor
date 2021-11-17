@@ -95,7 +95,10 @@ const EducationSearch = ({ navigation }) => {
                 {educationIndex !== "initial" ? (
                   <Button
                     onPress={() =>
-                      navigation.navigate("Education", { fisk: "tun" })
+                      navigation.navigate("Education", {
+                        schoolId: universityIndex,
+                        educationId: educationIndex,
+                      })
                     }
                     title="Vis beretninger"
                   />

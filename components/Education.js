@@ -2,9 +2,8 @@ import React from "react";
 import Tabs from "./Tabs";
 
 const Education = ({ route, navigation }) => {
-  console.log(route.params);
-  const education = "laks";
-  return <Tabs education={education} />;
+  const { params } = route;
+  return <Tabs params={params} />;
 };
 
 export default Education;

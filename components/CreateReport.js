@@ -1,23 +1,16 @@
 import React from "react";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
-import firebase from "firebase";
 
-const CreateReport = ({ query }) => {
+const CreateReport = ({ valgtUddannelse }) => {
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
-  query = "/universiteter/0/uddannelser/1";
 
   React.useEffect(() => {
     if (!uddannelse) {
-      firebase
-        .database()
-        .ref(query)
-        .on("value", (snapshot) => {
-          setUddannelse(snapshot.val());
-        });
+      setUddannelse(valgtUddannelse);
     }
-  }, []);
+  }, [valgtUddannelse]);
 
   if (!uddannelse) {
     return <Text>Indlæser ...</Text>;
