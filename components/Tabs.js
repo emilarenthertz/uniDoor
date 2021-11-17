@@ -14,6 +14,7 @@ const Tabs = ({ query }) => {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
         tabBarStyle: {
           ...styles.tabBar,
           ...styles.tabBarShadow,

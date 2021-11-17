@@ -7,6 +7,7 @@
           "navn": "HA almen",
           "reports": [
             {
+              "id": 1,
               "title": "Luksus kantine!!",
               "category": "canteen",
               "description": "Det er den bedste kantine jeg har prøvet",
@@ -15,6 +16,7 @@
               "user": "Karen"
             },
             {
+              "id": 2,
               "title": "Dårlig kantine!!",
               "category": "canteen",
               "description": "Det er den værste kantine jeg har prøvet",
@@ -28,6 +30,7 @@
           "navn": "HA it",
           "reports": [
             {
+              "id": 1,
               "title": "Luksus kantine!!",
               "category": "canteen",
               "description": "Det er den bedste kantine jeg har prøvet",
@@ -36,6 +39,7 @@
               "user": "Karen"
             },
             {
+              "id": 2,
               "title": "Dårlig kantine!!",
               "category": "canteen",
               "description": "Det er den værste kantine jeg har prøvet",
@@ -54,6 +58,7 @@
           "navn": "Økonomi",
           "reports": [
             {
+              "id": 1,
               "title": "Luksus kantine!!",
               "category": "canteen",
               "description": "Det er den bedste kantine jeg har prøvet",
@@ -62,6 +67,7 @@
               "user": "Thorkild"
             },
             {
+              "id": 2,
               "title": "Dårlig kantine!!",
               "category": "canteen",
               "description": "Det er den værste kantine jeg har prøvet",
@@ -75,6 +81,7 @@
           "navn": "Statskundskab",
           "reports": [
             {
+              "id": 1,
               "title": "Luksus kantine!!",
               "category": "canteen",
               "description": "Det er den bedste kantine jeg har prøvet",
@@ -83,6 +90,7 @@
               "user": "Thorkild"
             },
             {
+              "id": 2,
               "title": "Dårlig kantine!!",
               "category": "canteen",
               "description": "Det er den værste kantine jeg har prøvet",
