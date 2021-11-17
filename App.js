@@ -9,5 +9,5 @@ export default function App() {
     firebase.initializeApp(firebaseConfig);
   }
 
-  return <Education />;
+  return <WelcomeScreen />;
 }

@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import firebase from "firebase";
 import {StyleSheet, Text, View, Button} from "react-native";
 import {Picker} from "@react-native-picker/picker";
+import Education from './Education'
 
 const EducationSearch = ({navigation}) => {
     const [universities, setUniversities] = useState([]);
     const [universityIndex, setUniversityIndex] = useState("initial");
 
-    const [educations, setEducations] = useState([]);
+  
     const [educationOptions, setEducationOptions] = useState([])
     const [educationIndex, setEducationIndex] = useState("initial");
 
@@ -22,8 +23,7 @@ const EducationSearch = ({navigation}) => {
         } catch (error) {
             console.log(error);
         }
-
-    }, [educationOptions, educationIndex])
+    }, [])
 
     if(!universities) {
         return (
@@ -35,11 +35,14 @@ const EducationSearch = ({navigation}) => {
         return <Picker.Item label={uni.navn} value={index} key={index} />
     })
 
+    const searchEducation = () => {
+        <Education education={"fisk"}/>
+    }
+
     const universitySelected = (value) => {
         if(value !== 'initial'){
             setUniversityIndex(value)
             setEducationIndex('initial')
-            setEducations(universities[value].uddannelser)
             setEducationOptions(universities[value].uddannelser.map((edu, index) => {
                 return <Picker.Item label={edu.navn} value={index} key={index} />
             }))
@@ -87,6 +90,7 @@ const EducationSearch = ({navigation}) => {
                             <View style={{flex: 1}}>
                                 {educationIndex !== "initial" ?
                                     <Button
+                                        onPress={searchEducation}
                                         title="Vis beretninger"
                                     />
                                     : null
