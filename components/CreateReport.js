@@ -2,8 +2,9 @@ import React from "react";
 import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
+import firebase from "firebase";
 
-const CreateReport = ({ valgtUddannelse }) => {
+const CreateReport = ({ valgtUddannelse, query, navigation}) => {
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -13,6 +14,7 @@ const CreateReport = ({ valgtUddannelse }) => {
       borderWidth: 0,
       height: 50,
   }
+
   const [descriptionStyle, setDescriptionStyle] = React.useState(initialDescriptionStyle);
 
   React.useEffect(() => {
@@ -39,6 +41,30 @@ const CreateReport = ({ valgtUddannelse }) => {
 
   const onBlur = () => {
       setDescriptionStyle(initialDescriptionStyle)
+  }
+
+  const submit = async () => {
+
+      const report = {
+          category: "test",
+          date: Date.now(),
+          description: description,
+          rating: 0,
+          title: title,
+          user: "test"
+      }
+
+      const reports = [...valgtUddannelse.reports, report]
+
+      try {
+          await firebase
+              .database()
+              .ref(`${query}/reports`)
+              .set(reports);
+      } catch (error) {
+          console.log(error);
+          return `Error: ${error.message}`;
+      }
   }
 
   return (
@@ -77,30 +103,11 @@ const CreateReport = ({ valgtUddannelse }) => {
         <Card.Divider />
         {title !== '' && pickedIndex !== 'initial' && description !== ''  ?
         <View style={{alignItems:'center'}}>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={submit}>
                 <Text style={styles.text}>Opret</Text>
             </Pressable>
         </View>: null}
     </Card>
-    /*<Card>
-      <Card.Title>{uddannelse.navn}</Card.Title>
-      <Card.Divider />
-      <View>
-        <Text style={styles.label}>Titel:</Text>
-        <TextInput
-          value={title}
-          onChangeText={(e) => setTitle(e.target?.value)}
-          style={styles.input}
-        />
-      </View>
-      <View>
-  
-        <TextInput
-          value={description}
-          onChangeText={(e) => setDescription(e.target?.value)}
-        />
-      </View>
-    </Card>*/
   );
 };
 

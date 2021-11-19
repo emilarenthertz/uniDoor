@@ -73,7 +73,7 @@ const Tabs = ({ params }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        children={() => <CreateReport valgtUddannelse={uddannelse} />}
+        children={() => <CreateReport valgtUddannelse={uddannelse} query={query} navigation={navigator}/>}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
