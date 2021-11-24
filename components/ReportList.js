@@ -1,23 +1,25 @@
 import React from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { Card } from "react-native-elements";
 import * as Haptics from "expo-haptics";
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "firebase";
 
 const allFilters = {
-  ratingAsc: (report) => report.forEach((repot) => console.log(report)),
-  ratingDsc: (report) => report.forEach((repot) => console.log(report)),
-  category: {
-    kantine: (report) => report.forEach((repot) => console.log(report)),
-    arbejdsbyrde: (report) => report.forEach((repot) => console.log(report)),
-  },
+  ratingAsc: (reports) => reports.sort((a, b) => a.rating - b.rating),
+  ratingDsc: (reports) => reports.sort((a, b) => b.rating - a.rating),
+  kantine: (reports) =>
+    reports.filter((report) => report.category === "Kantine"),
+  arbejdsbyrde: (reports) =>
+    reports.filter((report) => report.category === "Arbejdsbyrde"),
+  studiejob: (reports) =>
+    reports.filter((report) => report.category === "Studiejob"),
+  socialt: (reports) =>
+    reports.filter((report) => report.category === "Socialt"),
+  faciliteter: (reports) =>
+    reports.filter((report) => report.category === "Faciliteter"),
+  datoAsc: (reports) => reports.sort((a, b) => a.date - b.date),
+  datoDsc: (reports) => reports.sort((a, b) => b.date - a.date),
 };
 
 const RatingComponnet = ({ report }) => {
@@ -77,8 +79,7 @@ const ReportList = ({ query, filter }) => {
   // If any filter is selected, it is applied here
   if (filter) {
     const selectedFilter = allFilters[filter];
-
-    console.log(selectedFilter(uddannelse.reports));
+    uddannelse.reports = selectedFilter(uddannelse.reports);
   }
 
   return (
