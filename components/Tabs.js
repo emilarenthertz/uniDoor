@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ReportList from "./ReportList";
 import CreateReport from "./CreateReport";
+import Filters from "./Filters";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "firebase";
@@ -9,13 +10,11 @@ import * as Haptics from "expo-haptics";
 
 const Tab = createBottomTabNavigator();
 
-// Link til youtube guide: https://www.youtube.com/watch?v=gPaBicMaib4
-
 // TODO: make sure that back button is only visible on list screen and not the rest
-// also translate back to danish
+
+// const customTabBarButton = x;
 
 const Tabs = ({ params, navigation }) => {
-
   const [uddannelse, setUddannelse] = React.useState();
 
   const { schoolId, educationId } = params;
@@ -45,7 +44,7 @@ const Tabs = ({ params, navigation }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList valgtUddannelse={uddannelse} />}
+        children={() => <ReportList query={query} />}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -74,7 +73,13 @@ const Tabs = ({ params, navigation }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        children={() => <CreateReport valgtUddannelse={uddannelse} query={query} navigation={navigation}/>}
+        children={() => (
+          <CreateReport
+            valgtUddannelse={uddannelse}
+            query={query}
+            navigation={navigation}
+          />
+        )}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -101,10 +106,11 @@ const Tabs = ({ params, navigation }) => {
           ),
         }}
       />
-      {/*<Tab.Screen
+      <Tab.Screen
         name="Filtrer"
-        // TODO: replace below component
-        component={CreateReport}
+        children={() => (
+          <Filters navigation={navigation} valgtUddannelse={uddannelse} />
+        )}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -130,7 +136,7 @@ const Tabs = ({ params, navigation }) => {
             </View>
           ),
         }}
-      />*/}
+      />
     </Tab.Navigator>
   );
 };

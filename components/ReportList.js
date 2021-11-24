@@ -9,12 +9,13 @@ import {
 import { Card } from "react-native-elements";
 import * as Haptics from "expo-haptics";
 import Icon from "react-native-vector-icons/FontAwesome";
+import firebase from "firebase";
 
 const RatingComponnet = ({ report }) => {
   const [rating, setRating] = React.useState(report.rating);
 
   return (
-    <View style={{ flex: 1, marginBottom: 15 }}>
+    <View style={{ flex: 1, marginBottom: 18 }}>
       <TouchableOpacity
         disabled={rating == Number(report.rating) + 1}
         onPress={() => {
@@ -46,14 +47,19 @@ const RatingComponnet = ({ report }) => {
   );
 };
 
-const ReportList = ({ valgtUddannelse }) => {
+const ReportList = ({ query }) => {
   const [uddannelse, setUddannelse] = React.useState();
 
   React.useEffect(() => {
     if (!uddannelse) {
-      setUddannelse(valgtUddannelse);
+      firebase
+        .database()
+        .ref(query)
+        .on("value", (snapshot) => {
+          setUddannelse(snapshot.val());
+        });
     }
-  }, [valgtUddannelse]);
+  }, []);
 
   if (!uddannelse) {
     return <Text>Indlæser beretninger...</Text>;
@@ -69,14 +75,18 @@ const ReportList = ({ valgtUddannelse }) => {
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
               <RatingComponnet report={report} />
-              <Text style={{ flex: 7, marginBottom: 15 }}>
+              <Text style={{ flex: 7, marginBottom: 18 }}>
                 {report.description}
               </Text>
             </View>
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ flex: 1 }}>{`#${report.category}`}</Text>
-              <Text style={{ textAlign: "right" }}>
+              <Text
+                style={{ flex: 1, color: "#5b5b5b", fontSize: 12 }}
+              >{`#${report.category}`}</Text>
+              <Text
+                style={{ textAlign: "right", color: "#5b5b5b", fontSize: 12 }}
+              >
                 {dato.toLocaleDateString("da-DK", {
                   month: "long",
                   day: "numeric",
