@@ -11,6 +11,15 @@ import * as Haptics from "expo-haptics";
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "firebase";
 
+const allFilters = {
+  ratingAsc: (report) => report.forEach((repot) => console.log(report)),
+  ratingDsc: (report) => report.forEach((repot) => console.log(report)),
+  category: {
+    kantine: (report) => report.forEach((repot) => console.log(report)),
+    arbejdsbyrde: (report) => report.forEach((repot) => console.log(report)),
+  },
+};
+
 const RatingComponnet = ({ report }) => {
   const [rating, setRating] = React.useState(report.rating);
 
@@ -63,6 +72,13 @@ const ReportList = ({ query, filter }) => {
 
   if (!uddannelse) {
     return <Text>Indlæser beretninger...</Text>;
+  }
+
+  // If any filter is selected, it is applied here
+  if (filter) {
+    const selectedFilter = allFilters[filter];
+
+    console.log(selectedFilter(uddannelse.reports));
   }
 
   return (

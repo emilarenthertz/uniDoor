@@ -66,7 +66,7 @@ const Tabs = ({ params, navigation }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList query={query} filter={filter} />}
+        children={() => <ReportList query={query} filter={"ratingAsc"} />}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -113,7 +113,11 @@ const Tabs = ({ params, navigation }) => {
       <Tab.Screen
         name="Filtrer"
         children={() => (
-          <Filters navigation={navigation} valgtUddannelse={uddannelse} setFilter={setFilter}/>
+          <Filters
+            navigation={navigation}
+            valgtUddannelse={uddannelse}
+            setFilter={setFilter}
+          />
         )}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
