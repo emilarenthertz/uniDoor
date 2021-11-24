@@ -20,14 +20,12 @@ const WelcomeScreen = (props) => {
           component={Education}
           options={({ route }) => ({
             headerTitle: route.params.educationName,
-            headerBackTitle: "Tilbage",
+            headerBackTitle: "Uddannelser",
           })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
-
-  // Når uddannelse er valgt, mount Education komponent, med valgte uddannelse som prop
 };
 
 export default WelcomeScreen;
