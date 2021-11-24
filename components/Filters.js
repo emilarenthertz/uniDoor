@@ -17,10 +17,20 @@ const Filters = ({ valgtUddannelse, navigation }) => {
     return <Text>Indlæser ...</Text>;
   }
 
-  const submit = async () => {};
+
+
+  const categories = uddannelse.reports.map(report => {
+      return report.category;
+  })
+
+  const submit = async () => {
+      await navigation.navigate('Oversigt')
+  };
 
   return (
     <Card>
+      <Text style={{fontSize: 30, fontWeight:"bold"}}>Filtrér beretninger</Text>
+
       {/*<TextInput
                 placeholder={'Titel'}
                 value={title}

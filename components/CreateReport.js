@@ -4,7 +4,7 @@ import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import firebase from "firebase";
 
-const CreateReport = ({ valgtUddannelse, query}) => {
+const CreateReport = ({ valgtUddannelse, query, navigation}) => {
 
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
@@ -62,6 +62,8 @@ const CreateReport = ({ valgtUddannelse, query}) => {
               .database()
               .ref(`${query}/reports`)
               .set(reports);
+
+          await navigation.navigate('Oversigt')
       } catch (error) {
           console.log(error);
           return `Error: ${error.message}`;
