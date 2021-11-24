@@ -24,7 +24,11 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
   })
 
   const submit = async () => {
-      setFilter("fisk");
+      /*
+      setFilter({
+        type: "category",
+        method: "Kantine"
+      });*/
       await navigation.navigate('Oversigt')
   };
 
