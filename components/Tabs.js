@@ -14,7 +14,8 @@ const Tab = createBottomTabNavigator();
 // TODO: make sure that back button is only visible on list screen and not the rest
 // also translate back to danish
 
-const Tabs = ({ params }) => {
+const Tabs = ({ params, navigation }) => {
+
   const [uddannelse, setUddannelse] = React.useState();
 
   const { schoolId, educationId } = params;
@@ -73,7 +74,7 @@ const Tabs = ({ params }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        children={() => <CreateReport valgtUddannelse={uddannelse} query={query} navigation={navigator}/>}
+        children={() => <CreateReport valgtUddannelse={uddannelse} query={query} navigation={navigation}/>}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -100,7 +101,7 @@ const Tabs = ({ params }) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name="Filtrer"
         // TODO: replace below component
         component={CreateReport}
@@ -129,7 +130,7 @@ const Tabs = ({ params }) => {
             </View>
           ),
         }}
-      />
+      />*/}
     </Tab.Navigator>
   );
 };

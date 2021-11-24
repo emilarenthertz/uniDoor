@@ -4,7 +4,8 @@ import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import firebase from "firebase";
 
-const CreateReport = ({ valgtUddannelse, query, navigation}) => {
+const CreateReport = ({ valgtUddannelse, query}) => {
+
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
