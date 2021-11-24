@@ -3,9 +3,52 @@ import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import firebase from "firebase";
+import RadioButtonRN from "radio-buttons-react-native";
 
 const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
   const [uddannelse, setUddannelse] = React.useState();
+  const [selectedFilter, setSelectedFilter] = React.useState();
+
+  const filters = [
+    {
+      label: "Højest ratede beretninger først",
+      value: "ratingDsc",
+    },
+    {
+      label: "Lavest ratede beretninger først",
+      value: "ratingAsc",
+    },
+    {
+      label: "Nyeste beretninger først",
+      value: "datoDsc",
+    },
+    {
+      label: "Ældste beretninger først",
+      value: "datoAsc",
+    },
+    {
+      label: "Kantine",
+      value: "kantine",
+    },
+    // TODO: Find løsning med filtrering af kategorier - kun ÉT filter kan være valgt :(
+    // @pvburleigh
+    // {
+    //   label: "Arbejdsbyrde",
+    //   value: "arbejdsbyrde",
+    // },
+    // {
+    //   label: "Studiejob",
+    //   value: "studiejob",
+    // },
+    // {
+    //   label: "Socialt",
+    //   value: "socialt",
+    // },
+    // {
+    //   label: "Faciliteter",
+    //   value: "faciliteter",
+    // },
+  ];
 
   React.useEffect(() => {
     if (!uddannelse) {
@@ -17,24 +60,30 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     return <Text>Indlæser ...</Text>;
   }
 
-
-
-  const categories = uddannelse.reports.map(report => {
-      return report.category;
-  })
+  const categories = uddannelse.reports.map((report) => {
+    return report.category;
+  });
 
   const submit = async () => {
-      /*
-      setFilter({
-        type: "category",
-        method: "Kantine"
-      });*/
-      await navigation.navigate('Oversigt')
+    setFilter(selectedFilter);
+    await navigation.navigate("Oversigt");
+  };
+
+  const removeFilters = async () => {
+    setFilter(null);
+    await navigation.navigate("Oversigt");
   };
 
   return (
     <Card>
-      <Text style={{fontSize: 30, fontWeight:"bold"}}>Filtrér beretninger</Text>
+      <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+        Filtrér beretninger
+      </Text>
+      <Card.Divider />
+      <RadioButtonRN
+        data={filters}
+        selectedBtn={(e) => setSelectedFilter(e.value)}
+      />
 
       {/*<TextInput
                 placeholder={'Titel'}
@@ -42,7 +91,7 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
                 onChangeText={(text) => setTitle(text)}
                 style={[styles.input, styles.normalInputHeight]}
             />
-            <Card.Divider />*/}
+            <Card.Divider />
       {/*<RNPickerSelect
                 style={customPickerStyles}
                 onValueChange={(value) => setPickedIndex(value)}
@@ -57,7 +106,7 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
                     { label: "Eksaminer", value: "4" },
                 ]}
             />*/}
-      <Card.Divider />
+      {/* <Card.Divider /> */}
       {/* <TextInput
         value={description}
         placeholder={"Del din oplevelse"}
@@ -73,6 +122,16 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
           <Text style={styles.text}>Filtrér</Text>
         </Pressable>
       </View>
+      {selectedFilter && (
+        <>
+          <Card.Divider style={{ marginTop: 15 }} />
+          <View style={{ alignItems: "center" }}>
+            <Pressable style={styles.greyButton} onPress={removeFilters}>
+              <Text style={styles.text}>Fjern filtre</Text>
+            </Pressable>
+          </View>
+        </>
+      )}
     </Card>
   );
 };
@@ -100,6 +159,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#0099FF",
+    width: 150,
+  },
+  greyButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "grey",
     width: 150,
   },
   text: {

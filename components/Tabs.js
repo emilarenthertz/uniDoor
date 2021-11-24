@@ -66,7 +66,7 @@ const Tabs = ({ params, navigation }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList query={query} filter={"datoDsc"} />}
+        children={() => <ReportList query={query} filter={filter} />}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}

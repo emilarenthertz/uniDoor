@@ -62,21 +62,18 @@ const ReportList = ({ query, filter }) => {
   const [uddannelse, setUddannelse] = React.useState();
 
   React.useEffect(() => {
-    if (!uddannelse) {
-      firebase
-        .database()
-        .ref(query)
-        .on("value", (snapshot) => {
-          setUddannelse(snapshot.val());
-        });
-    }
-  }, []);
+    firebase
+      .database()
+      .ref(query)
+      .on("value", (snapshot) => {
+        setUddannelse(snapshot.val());
+      });
+  }, [filter]);
 
   if (!uddannelse) {
     return <Text>Indlæser beretninger...</Text>;
   }
 
-  // If any filter is selected, it is applied here
   if (filter) {
     const selectedFilter = allFilters[filter];
     uddannelse.reports = selectedFilter(uddannelse.reports);
@@ -115,7 +112,6 @@ const ReportList = ({ query, filter }) => {
         );
       })}
       <Text style={{ marginBottom: 120 }} />
-      {/* Above is a hack - find better solution */}
     </ScrollView>
   );
 };
