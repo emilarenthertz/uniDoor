@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ReportList from "./ReportList";
 import CreateReport from "./CreateReport";
 import Filters from "./Filters";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "firebase";
 import * as Haptics from "expo-haptics";
@@ -12,7 +12,28 @@ const Tab = createBottomTabNavigator();
 
 // TODO: make sure that back button is only visible on list screen and not the rest
 
-// const customTabBarButton = x;
+const CustomTabBarButton = ({ children, onPress }) => (
+  <TouchableOpacity
+    style={{
+      top: -25,
+      justifyContent: "center",
+      alignItems: "center",
+      ...styles.tabBarShadow,
+    }}
+    onPress={onPress}
+  >
+    <View
+      style={{
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        backgroundColor: "#0099FF",
+      }}
+    >
+      {children}
+    </View>
+  </TouchableOpacity>
+);
 
 const Tabs = ({ params, navigation }) => {
   const [uddannelse, setUddannelse] = React.useState();
@@ -81,29 +102,11 @@ const Tabs = ({ params, navigation }) => {
           />
         )}
         listeners={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
         }}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 12,
-              }}
-            >
-              <Icon name="plus" size={25} />
-              <Text
-                style={{
-                  color: focused ? "#0099FF" : "#748c94",
-                  fontSize: 12,
-                  paddingTop: 8,
-                }}
-              >
-                Skriv beretning
-              </Text>
-            </View>
-          ),
+          tabBarIcon: ({ focused }) => <Icon name="plus" size={30} />,
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
       />
       <Tab.Screen
