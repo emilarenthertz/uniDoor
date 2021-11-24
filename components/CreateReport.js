@@ -4,12 +4,7 @@ import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import firebase from "firebase";
 
-<<<<<<< Updated upstream
-const CreateReport = ({ valgtUddannelse, query, navigation}) => {
-
-=======
 const CreateReport = ({ valgtUddannelse, query, navigation }) => {
->>>>>>> Stashed changes
   const [uddannelse, setUddannelse] = React.useState();
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -51,30 +46,26 @@ const CreateReport = ({ valgtUddannelse, query, navigation }) => {
   };
 
   const submit = async () => {
+    const report = {
+      category: "test",
+      date: Date.now(),
+      description: description,
+      rating: 0,
+      title: title,
+      user: "test",
+    };
 
-      const report = {
-          category: "test",
-          date: Date.now(),
-          description: description,
-          rating: 0,
-          title: title,
-          user: "test"
-      }
+    const reports = [...valgtUddannelse.reports, report];
 
-      const reports = [...valgtUddannelse.reports, report]
+    try {
+      await firebase.database().ref(`${query}/reports`).set(reports);
 
-      try {
-          await firebase
-              .database()
-              .ref(`${query}/reports`)
-              .set(reports);
-
-          await navigation.navigate('Oversigt')
-      } catch (error) {
-          console.log(error);
-          return `Error: ${error.message}`;
-      }
-  }
+      await navigation.navigate("Oversigt");
+    } catch (error) {
+      console.log(error);
+      return `Error: ${error.message}`;
+    }
+  };
 
   return (
     <Card>
