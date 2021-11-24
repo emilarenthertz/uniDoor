@@ -1,13 +1,13 @@
 import React from "react";
-import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
-import firebase from "firebase";
 import RadioButtonRN from "radio-buttons-react-native";
 
 const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
   const [uddannelse, setUddannelse] = React.useState();
   const [selectedFilter, setSelectedFilter] = React.useState();
+  const [pickedCategory, setPickedCategory] = React.useState("initial");
 
   const filters = [
     {
@@ -27,27 +27,9 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
       value: "datoAsc",
     },
     {
-      label: "Kantine",
-      value: "kantine",
-    },
-    // TODO: Find løsning med filtrering af kategorier - kun ÉT filter kan være valgt :(
-    // @pvburleigh
-    // {
-    //   label: "Arbejdsbyrde",
-    //   value: "arbejdsbyrde",
-    // },
-    // {
-    //   label: "Studiejob",
-    //   value: "studiejob",
-    // },
-    // {
-    //   label: "Socialt",
-    //   value: "socialt",
-    // },
-    // {
-    //   label: "Faciliteter",
-    //   value: "faciliteter",
-    // },
+      label: "Sorter efter kategori",
+      value: "category",
+    }
   ];
 
   React.useEffect(() => {
@@ -60,12 +42,20 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     return <Text>Indlæser ...</Text>;
   }
 
-  const categories = uddannelse.reports.map((report) => {
-    return report.category;
+  const categories = uddannelse.reports.map((report, i) => {
+    return {
+      label: report.category,
+      value: report.category,
+    }
   });
 
   const submit = async () => {
-    setFilter(selectedFilter);
+    const filter = {
+      filter: selectedFilter,
+      value: selectedFilter === 'category' ? pickedCategory : selectedFilter
+    }
+
+    setFilter(filter);
     await navigation.navigate("Oversigt");
   };
 
@@ -73,6 +63,14 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     setFilter(null);
     await navigation.navigate("Oversigt");
   };
+
+  const radioButtonClick = (e) =>{
+      setSelectedFilter(e.value)
+  }
+
+  const categoryPicked = (value) => {
+      setPickedCategory(value)
+  }
 
   return (
     <Card>
@@ -82,56 +80,36 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
       <Card.Divider />
       <RadioButtonRN
         data={filters}
-        selectedBtn={(e) => setSelectedFilter(e.value)}
+        selectedBtn={radioButtonClick}
       />
+      { selectedFilter === 'category' ?
+        <RNPickerSelect
+          style={customPickerStyles}
+          onValueChange={categoryPicked}
+          placeholderTextColor={"DD0000"}
+          placeholder={{ label: "Vælg kategori", value: "initial" }}
+          items={categories}
+        />
+        : null
+      }
 
-      {/*<TextInput
-                placeholder={'Titel'}
-                value={title}
-                onChangeText={(text) => setTitle(text)}
-                style={[styles.input, styles.normalInputHeight]}
-            />
+      {selectedFilter ?
+          <>
             <Card.Divider />
-      {/*<RNPickerSelect
-                style={customPickerStyles}
-                onValueChange={(value) => setPickedIndex(value)}
-                placeholderTextColor={'DD0000'}
-                placeholder={{ label: "Kategori", value: "initial" }}
-                items={[
-                    { label: "Kantine", value: "0" },
-                    { label: "Arbejdsbyrde", value: "1" },
-                    { label: "Studiejob", value: "2" },
-                    { label: "Socialt", value: "3" },
-                    { label: "Faciliteter", value: "4" },
-                    { label: "Eksaminer", value: "4" },
-                ]}
-            />*/}
-      {/* <Card.Divider /> */}
-      {/* <TextInput
-        value={description}
-        placeholder={"Del din oplevelse"}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        onChangeText={(text) => setDescription(text)}
-        style={descriptionStyle}
-        multiline={true}
-      /> */}
-      <Card.Divider />
-      <View style={{ alignItems: "center" }}>
-        <Pressable style={styles.button} onPress={submit}>
-          <Text style={styles.text}>Filtrér</Text>
-        </Pressable>
-      </View>
-      {selectedFilter && (
-        <>
-          <Card.Divider style={{ marginTop: 15 }} />
-          <View style={{ alignItems: "center" }}>
-            <Pressable style={styles.greyButton} onPress={removeFilters}>
-              <Text style={styles.text}>Fjern filtre</Text>
-            </Pressable>
-          </View>
-        </>
-      )}
+            <View style={{ alignItems: "center" }}>
+              <Pressable style={styles.button} onPress={submit} disabledInputStyle={{backgroundColor: '#000000 !important'}} disabled={selectedFilter === 'category' && pickedCategory === "initial"}>
+                <Text style={styles.text}>Filtrér</Text>
+              </Pressable>
+            </View>
+
+            <Card.Divider style={{ marginTop: 15 }} />
+            <View style={{ alignItems: "center" }}>
+              <Pressable style={styles.greyButton} onPress={removeFilters}>
+                <Text style={styles.text}>Fjern filtre</Text>
+              </Pressable>
+            </View>
+          </>
+      : null}
     </Card>
   );
 };
@@ -180,8 +158,9 @@ const styles = StyleSheet.create({
 
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 40,
-    height: 50,
+    fontSize: 20,
+    textAlign: 'center',
+    height: 45,
   },
   /*inputAndroid: {
 

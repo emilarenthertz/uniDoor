@@ -8,16 +8,8 @@ import firebase from "firebase";
 const allFilters = {
   ratingAsc: (reports) => reports.sort((a, b) => a.rating - b.rating),
   ratingDsc: (reports) => reports.sort((a, b) => b.rating - a.rating),
-  kantine: (reports) =>
-    reports.filter((report) => report.category === "Kantine"),
-  arbejdsbyrde: (reports) =>
-    reports.filter((report) => report.category === "Arbejdsbyrde"),
-  studiejob: (reports) =>
-    reports.filter((report) => report.category === "Studiejob"),
-  socialt: (reports) =>
-    reports.filter((report) => report.category === "Socialt"),
-  faciliteter: (reports) =>
-    reports.filter((report) => report.category === "Faciliteter"),
+  category: (reports, category) =>
+    reports.filter((report) => report.category === category),
   datoAsc: (reports) => reports.sort((a, b) => a.date - b.date),
   datoDsc: (reports) => reports.sort((a, b) => b.date - a.date),
 };
@@ -75,8 +67,8 @@ const ReportList = ({ query, filter }) => {
   }
 
   if (filter) {
-    const selectedFilter = allFilters[filter];
-    uddannelse.reports = selectedFilter(uddannelse.reports);
+    const selectedFilter = allFilters[filter.filter]
+    uddannelse.reports = filter.filter === 'category' ? selectedFilter(uddannelse.reports, filter.value) : selectedFilter(uddannelse.reports) ;
   }
 
   return (

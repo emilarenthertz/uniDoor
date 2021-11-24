@@ -47,7 +47,7 @@ const CreateReport = ({ valgtUddannelse, query, navigation }) => {
 
   const submit = async () => {
     const report = {
-      category: "test",
+      category: pickedIndex,
       date: Date.now(),
       description: description,
       rating: 0,
@@ -59,7 +59,9 @@ const CreateReport = ({ valgtUddannelse, query, navigation }) => {
 
     try {
       await firebase.database().ref(`${query}/reports`).set(reports);
-
+      setTitle("");
+      setDescription("");
+      setPickedIndex("initial");
       await navigation.navigate("Oversigt");
     } catch (error) {
       console.log(error);
@@ -82,12 +84,12 @@ const CreateReport = ({ valgtUddannelse, query, navigation }) => {
         placeholderTextColor={"DD0000"}
         placeholder={{ label: "Kategori", value: "initial" }}
         items={[
-          { label: "Kantine", value: "0" },
-          { label: "Arbejdsbyrde", value: "1" },
-          { label: "Studiejob", value: "2" },
-          { label: "Socialt", value: "3" },
-          { label: "Faciliteter", value: "4" },
-          { label: "Eksaminer", value: "4" },
+          { label: "Kantine", value: "Kantine" },
+          { label: "Arbejdsbyrde", value: "Arbejdsbyrde" },
+          { label: "Studiejob", value: "Studiejob" },
+          { label: "Socialt", value: "Socialt" },
+          { label: "Faciliteter", value: "Faciliteter" },
+          { label: "Eksaminer", value: "Eksaminer" },
         ]}
       />
       <Card.Divider />
