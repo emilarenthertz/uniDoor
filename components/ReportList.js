@@ -47,7 +47,7 @@ const RatingComponnet = ({ report }) => {
   );
 };
 
-const ReportList = ({ query }) => {
+const ReportList = ({ query, filter }) => {
   const [uddannelse, setUddannelse] = React.useState();
 
   React.useEffect(() => {

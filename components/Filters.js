@@ -4,7 +4,7 @@ import { Card } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import firebase from "firebase";
 
-const Filters = ({ valgtUddannelse, navigation }) => {
+const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
   const [uddannelse, setUddannelse] = React.useState();
 
   React.useEffect(() => {
@@ -24,6 +24,7 @@ const Filters = ({ valgtUddannelse, navigation }) => {
   })
 
   const submit = async () => {
+      setFilter("fisk");
       await navigation.navigate('Oversigt')
   };
 

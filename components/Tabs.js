@@ -37,6 +37,7 @@ const CustomTabBarButton = ({ children, onPress }) => (
 
 const Tabs = ({ params, navigation }) => {
   const [uddannelse, setUddannelse] = React.useState();
+  const [filter, setFilter] = React.useState();
 
   const { schoolId, educationId } = params;
   const query = `/universiteter/${schoolId}/uddannelser/${educationId}`;
@@ -65,7 +66,7 @@ const Tabs = ({ params, navigation }) => {
     >
       <Tab.Screen
         name="Oversigt"
-        children={() => <ReportList query={query} />}
+        children={() => <ReportList query={query} filter={filter} />}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -112,7 +113,7 @@ const Tabs = ({ params, navigation }) => {
       <Tab.Screen
         name="Filtrer"
         children={() => (
-          <Filters navigation={navigation} valgtUddannelse={uddannelse} />
+          <Filters navigation={navigation} valgtUddannelse={uddannelse} setFilter={setFilter}/>
         )}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
