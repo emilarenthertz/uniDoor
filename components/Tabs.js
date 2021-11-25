@@ -73,7 +73,13 @@ const Tabs = ({ params }) => {
       />
       <Tab.Screen
         name="Skriv beretning"
-        children={() => <CreateReport valgtUddannelse={uddannelse} query={query} navigation={navigator}/>}
+        children={() => (
+          <CreateReport
+            valgtUddannelse={uddannelse}
+            query={query}
+            navigation={navigator}
+          />
+        )}
         listeners={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }}
@@ -100,7 +106,7 @@ const Tabs = ({ params }) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Filtrer"
         // TODO: replace below component
         component={CreateReport}
@@ -129,7 +135,7 @@ const Tabs = ({ params }) => {
             </View>
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
