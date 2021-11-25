@@ -10,8 +10,6 @@ import * as Haptics from "expo-haptics";
 
 const Tab = createBottomTabNavigator();
 
-// TODO: make sure that back button is only visible on list screen and not the rest
-
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{

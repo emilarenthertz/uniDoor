@@ -153,9 +153,6 @@ const customPickerStyles = StyleSheet.create({
     fontSize: 40,
     height: 50,
   },
-  /*inputAndroid: {
-
-    },*/
 });
 
 export default CreateReport;

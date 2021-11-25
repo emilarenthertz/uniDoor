@@ -29,7 +29,7 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     {
       label: "Sorter efter kategori",
       value: "category",
-    }
+    },
   ];
 
   React.useEffect(() => {
@@ -46,14 +46,14 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     return {
       label: report.category,
       value: report.category,
-    }
+    };
   });
 
   const submit = async () => {
     const filter = {
       filter: selectedFilter,
-      value: selectedFilter === 'category' ? pickedCategory : selectedFilter
-    }
+      value: selectedFilter === "category" ? pickedCategory : selectedFilter,
+    };
 
     setFilter(filter);
     await navigation.navigate("Oversigt");
@@ -64,13 +64,13 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
     await navigation.navigate("Oversigt");
   };
 
-  const radioButtonClick = (e) =>{
-      setSelectedFilter(e.value)
-  }
+  const radioButtonClick = (e) => {
+    setSelectedFilter(e.value);
+  };
 
   const categoryPicked = (value) => {
-      setPickedCategory(value)
-  }
+    setPickedCategory(value);
+  };
 
   return (
     <Card>
@@ -78,11 +78,8 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
         Filtrér beretninger
       </Text>
       <Card.Divider />
-      <RadioButtonRN
-        data={filters}
-        selectedBtn={radioButtonClick}
-      />
-      { selectedFilter === 'category' ?
+      <RadioButtonRN data={filters} selectedBtn={radioButtonClick} />
+      {selectedFilter === "category" ? (
         <RNPickerSelect
           style={customPickerStyles}
           onValueChange={categoryPicked}
@@ -90,26 +87,32 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
           placeholder={{ label: "Vælg kategori", value: "initial" }}
           items={categories}
         />
-        : null
-      }
+      ) : null}
 
-      {selectedFilter ?
-          <>
-            <Card.Divider />
-            <View style={{ alignItems: "center" }}>
-              <Pressable style={styles.button} onPress={submit} disabledInputStyle={{backgroundColor: '#000000 !important'}} disabled={selectedFilter === 'category' && pickedCategory === "initial"}>
-                <Text style={styles.text}>Filtrér</Text>
-              </Pressable>
-            </View>
+      {selectedFilter ? (
+        <>
+          <Card.Divider />
+          <View style={{ alignItems: "center" }}>
+            <Pressable
+              style={styles.button}
+              onPress={submit}
+              disabledInputStyle={{ backgroundColor: "#000000 !important" }}
+              disabled={
+                selectedFilter === "category" && pickedCategory === "initial"
+              }
+            >
+              <Text style={styles.text}>Filtrér</Text>
+            </Pressable>
+          </View>
 
-            <Card.Divider style={{ marginTop: 15 }} />
-            <View style={{ alignItems: "center" }}>
-              <Pressable style={styles.greyButton} onPress={removeFilters}>
-                <Text style={styles.text}>Fjern filtre</Text>
-              </Pressable>
-            </View>
-          </>
-      : null}
+          <Card.Divider style={{ marginTop: 15 }} />
+          <View style={{ alignItems: "center" }}>
+            <Pressable style={styles.greyButton} onPress={removeFilters}>
+              <Text style={styles.text}>Fjern filtre</Text>
+            </Pressable>
+          </View>
+        </>
+      ) : null}
     </Card>
   );
 };
@@ -159,12 +162,9 @@ const styles = StyleSheet.create({
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     height: 45,
   },
-  /*inputAndroid: {
-
-    },*/
 });
 
 export default Filters;
