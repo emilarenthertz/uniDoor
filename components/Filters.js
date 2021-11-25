@@ -78,7 +78,13 @@ const Filters = ({ valgtUddannelse, navigation, setFilter }) => {
         Filtrér beretninger
       </Text>
       <Card.Divider />
-      <RadioButtonRN data={filters} selectedBtn={radioButtonClick} />
+      <RadioButtonRN
+        data={filters}
+        selectedBtn={radioButtonClick}
+        circleSize={10}
+        activeColor="#0099FF"
+        animationTypes={["pulse"]}
+      />
       {selectedFilter === "category" ? (
         <RNPickerSelect
           style={customPickerStyles}
@@ -149,6 +155,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "grey",
     width: 150,
+    height: 40,
   },
   text: {
     textAlign: "center",
